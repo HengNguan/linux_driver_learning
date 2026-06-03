@@ -14,9 +14,15 @@ static ssize_t my_read(struct file *f, char __user *u, size_t l, loff_t *o)
 }
 // sudo dd if=/dev/hello0 of=/tmp/out bs=1 count=100
 
+static ssize_t my_write(struct file *f, const char __user *u, size_t l, loff_t *o)
+{
+	pr_info("hello_cdev - Write is called with %zu bytes\n", l);
+	return l;
+}
 
 static struct file_operations fops = {
-	.read = my_read
+	.read = my_read,
+	.write = my_write
 };
 
 static int __init my_init(void)
@@ -86,3 +92,4 @@ module_exit(my_exit);
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Johannes 4Linux");
 MODULE_DESCRIPTION("A sample driver for manually registering a character device");
+MODULE_INFO(thn,"THN");

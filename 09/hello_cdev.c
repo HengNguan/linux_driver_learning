@@ -16,6 +16,7 @@ static ssize_t my_read(struct file *f, char __user *u, size_t l, loff_t *o)
 
 static struct file_operations fops = {
 	.read = my_read
+	.owner = THIS_MODULE,
 };
 
 static int __init my_init(void)
